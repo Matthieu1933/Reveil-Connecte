@@ -1,0 +1,58 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+
+// This is the library version used when deploying the artifact
+version = "1.0.4"
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 22
+        versionCode 1
+        versionName version
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:support-v4:23.1.1'
+}
+
+ext {
+    bintrayRepo = 'maven'
+    //this is going to be the repo name on Bintray
+    bintrayName = 'Mi-Band'
+
+    publishedGroupId = 'com.betomaluje.miband'
+    libraryName = 'Mi-Band'
+    artifact = 'app'
+
+    libraryDescription = 'A wrapper for Xiaomi Mi Band interaction for Android'
+
+    siteUrl = 'https://github.com/betomaluje/Mi-Band'
+    gitUrl = 'https://github.com/betomaluje/Mi-Band.git'
+
+    libraryVersion = version
+
+    developerId = 'betomaluje'
+    developerName = 'Alberto Maluje'
+    developerEmail = 'alberto.maluje@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
