@@ -14,7 +14,7 @@ def drawcircle(Alpha,Beta,Rayon,Couleur,can): #draw a circle base on center coor
 
 def drawPetAig(CoordA, CoordZ, Taille, Omega, can): #function to drawn the second hand of the clock
     Pi = 3.141592
-    Omega = ((Omega/60)+1)*30
+    Omega = (Omega*5-15)*6#((Omega/60)+1)*30
     can.create_line(CoordA + (Taille/3) * cos(Pi*(Omega/180)), CoordZ + (Taille/3) * sin(Pi*(Omega/180)), CoordA - (Taille/8) * cos(Pi*(Omega/180)), CoordZ - (Taille/8) * sin(Pi*(Omega/180)) )
 
 def drawGrdAig(CoordA, CoordZ, Taille, Omega, can): #function to draw the minute hand, based on center coord and minutes.
@@ -83,12 +83,13 @@ def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = g
 
     fondhorloge(Gamma, Pi, Epsylon, can1)# extracting time value
     patate = gmtime()
-    heure = patate[3] + 1  # "+1" is changing time from english time to french time :P
+    heure = patate[3] + 2  # "+1" is changing time from english time to french time :P
     minute = patate[4]
     seconde = patate[5]
 
     print(heure, minute, seconde) # a simple test to watch what the programm is doing (run it, and you'll see, that this test is done tausend time per second, that why I think the problem is here.)
-    drawPetAig(Gamma, Pi, Epsylon, heure, can1)
+
+    drawPetAig(Gamma, Pi, Epsylon, heure+ minute/60, can1)
     drawGrdAig(Gamma, Pi, Epsylon, minute, can1)
     drawSecAig(Gamma, Pi, Epsylon, seconde, can1)
 
@@ -102,6 +103,8 @@ def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = g
 fen1 = Tk()
 
 can1 = Canvas(fen1, bg="white", height=500, width=500)
+#can1.pack(expand=True, fill="x", padx=5, pady=5, side = RIGHT)
+
 HORLOGE1(250, 180, 150)
 
 box1 = Frame(fen1, bg="white")
