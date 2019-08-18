@@ -34,13 +34,25 @@ def getTimeAndDay():
     a = [((datetime.datetime.today().weekday() ) % 7 ), (date.hour), (date.minute) ]
     return a
 
-def urltoJson(url= "https://api.darksky.net/forecast/7e947064852bbae07dea882d4412ce93/48.856614,%202.3522219?lang=fr&units=si" ):
+def urltoJsonMeteo(url= "https://api.darksky.net/forecast/7e947064852bbae07dea882d4412ce93/48.856614,%202.3522219?lang=fr&units=si" ):
     requ= urllib.request.urlopen(url)         
     data = json.loads(requ.read().decode())
     #print(data)
     return data
-
-def Meteo(ville, quand=0, Infos=0):
+data = ""
+def Meteo(ville="Paris", quand=0, Infos=0):
+    """
+    calcul coordonées géographiques"
+    """
+    
+    url= "https://api.opencagedata.com/geocode/v1/json?q="+ville+"&key=a4078987eaeb4bb7b9ba8eb46950032f"
+    requ= urllib.request.urlopen(url)         
+    data = json.loads(requ.read().decode())
+    
+    lat = (data["results"][0]["bounds"]["northeast"]["lat"])
+    lng =  (data["results"][0]["bounds"]["northeast"]["lng"])
+    #return data    
+    
     if quand>1:
         jourdemandé = jourSemaine[getTimeAndDay()[0]-1+quand]
     elif quand==0:
@@ -49,6 +61,7 @@ def Meteo(ville, quand=0, Infos=0):
         jourdemandé = "demain"
         
     unités = ""
+        
     """
     Infos:
         0-Summary
@@ -59,11 +72,11 @@ def Meteo(ville, quand=0, Infos=0):
         5-pluie           
     """
     info = ''
-    data = urltoJson()
+    data = urltoJsonMeteo("https://api.darksky.net/forecast/7e947064852bbae07dea882d4412ce93/"+str(lat)+",%20"+str(lng)+"?lang=fr&units=si")
     if Infos == 0:
        info = 'summary' 
     elif Infos == 1:
-        temp = (data["daily"]["data"][quand]['temperatureHigh']+data["daily"]["data"][quand]['temperatureLow'])/2
+        temp = (data["currently"]["temperature"])
         return (str(  round(temp, 1))+ " degrés")
        
     elif Infos == 2:
@@ -81,12 +94,12 @@ def Meteo(ville, quand=0, Infos=0):
         
         if pluie<0.1:
             print("Non, il ne va pas pleuvoir "+ jourdemandé)
-        elif pluie<0.1:
-            print("il  va légèrement pleuvoir"+ jourdemandé)
+        elif pluie<0.3:
+            print("il  va légèrement pleuvoir "+ jourdemandé)
         elif pluie<0.5:
-            print("Oui, il  va pleuvoir"+ jourdemandé)
-        elif pluie<0.1:
-            print("Oui, il va y avoir une averse!"+ jourdemandé)
+            print("Oui, il  va pleuvoir "+ jourdemandé)
+        elif pluie>0.5:
+            print("Oui, il va y avoir une averse! "+ jourdemandé)
         return pluie        
     
     return (str(data["daily"]["data"][quand][info])  + unités)
@@ -182,7 +195,7 @@ def alphred(phrase="", _respond=0):
     if phrase == "":
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            print("Say something!")
+            print("Dites quelque chose!")
             audio = r.listen(source, phrase_time_limit=5)
     
     
@@ -190,8 +203,6 @@ def alphred(phrase="", _respond=0):
     # Speech recognition using Google Speech Recognition
     try:       
    
-                
-       
         # for testing purposes, we're just using the default API key
         # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         # instead of `r.recognize_google(audio)`
@@ -200,7 +211,7 @@ def alphred(phrase="", _respond=0):
       
         listeMots = textToList(phrase)
         
-        print("You said: " + phrase + "\n")
+        print("Vous avez dit: " + phrase + "\n")
        
         #Réponse for the return of the recursive call
         if _respond != 0:
