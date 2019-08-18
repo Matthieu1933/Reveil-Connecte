@@ -11,7 +11,6 @@ import re
 
 
 ######VARIABLES
-
 nom = "Arthur" #Le nom par default est Arthur
 
 jourSemaine=["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
@@ -152,7 +151,7 @@ class Time(threading.Thread):
                         heure = getTimeAndDay()[1]
                         minute = getTimeAndDay()[2]
                                                 
-                        fichier = open("donnes/listeReveils.txt", "r")        
+                        fichier = open("C:/Users/matth/OneDrive/Bureau/Reveil_Connecte/Reveil-Connecte/assistant_vocal/donnes/listeReveils.txt", "r")        
                         rep = fichier.readlines()
                         for i in range (len(rep)):
                              donnesReveil = (re.split("[ h]",rep[i]))  # On Transforme la ligne en liste splité aux espaces et au h
@@ -326,3 +325,5 @@ def alphred(phrase="", _respond=0):
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
    # except:
     #    print "Je n'ai pas compris! :( \nEt je suis blindé!"
+
+alphred()
