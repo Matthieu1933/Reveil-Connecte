@@ -1,0 +1,2 @@
+googlesamples-assistant-pushtotalk --project-id alfred-208721 --device-model-id  alfred-208721-pcarthur-ibncwo --lang fr_FR
+

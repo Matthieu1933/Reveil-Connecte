@@ -17,10 +17,9 @@ nom = "Arthur" #Le nom par default est Arthur
 jourSemaine=["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
 
 
-
 """
 https://api.navitia.io/v1/journeys?from=2.2934000000000196;48.8859&to=2.358100000000036;48.8099&datetime=20190209T174740
-https://api.navitia.io/v1/journeys?from=2.2934000000000196;48.8859&to=2.330436;48.864244&datetime=20190209T190040&forbidden_uris[]=physical_mode:Bus
+https://api.navitia.io/v1/journeys?from=2.2910218;48.8841998&to=2.356972;48.810108&datetime=20190209T190040&forbidden_uris[]=physical_mode:Bus
 
 https://api.darksky.net/forecast/7e947064852bbae07dea882d4412ce93/42.3601,-71.0589,255657600?lang=fr
 https://api.darksky.net/forecast/7e947064852bbae07dea882d4412ce93/48.856614,%202.3522219?lang=fr&units=si
@@ -258,6 +257,13 @@ def alphred(phrase="", _respond=0):
         elif (listeContain(listeMots, "réveil") != -1 )and ((indexMot((listeContain(listeMots, "réveil")+1), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+2), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+3), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+4), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+5), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+6), "à", listeMots)) or (indexMot((listeContain(listeMots, "réveil")+7), "à", listeMots))):
             jour = ((datetime.datetime.today().weekday() ) % 7 )
             #print("jour:" + str(jour))
+            
+            
+            indexMotReveil = listeContain(listeMots, "réveil")
+            indexReveil = listeContain(listeMots, "à", True, indexMotReveil) +1
+            reveil = listeMots[indexReveil]
+            
+            
             if listeContain(listeMots, "chaque") != -1 or (listeContain(listeMots, "tous") != -1 and listeContain(listeMots, "les") != -1):
                 repeat = True
             if  listeContain(listeMots, "après-demain") != -1 or (listeContain(listeMots, "après") != -1 and listeContain(listeMots, "demain") != -1):
@@ -298,9 +304,6 @@ def alphred(phrase="", _respond=0):
             elif len(jours) == 0:
                 jour = ((datetime.datetime.today().weekday()) % 7 )
                 jours.append(str(jour-1)) # Sinon on le met à aujourd'hui
-            indexMotReveil = listeContain(listeMots, "réveil")
-            indexReveil = listeContain(listeMots, "à", True, indexMotReveil) +1
-            reveil = listeMots[indexReveil]
             print(entendu() + "! Je mets un reveil à " + reveil +"!" )
             fichier = open("donnes/listeReveils.txt", "a")        
             fichier.write("True " + reveil+ " " + ''.join(jours) + " " + str(repeat) + "\n")
