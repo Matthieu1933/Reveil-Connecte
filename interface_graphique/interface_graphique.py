@@ -72,6 +72,12 @@ def tick(can):
     can.create_window(250, 390, window=window_time)
     can.create_window(250, 440, window=window_date)
 
+def delete_canvas(can):
+    can.delete("all")
+    print('Hello')
+    pass
+
+
 #PRINCIPLE FUNCTION (here the problem starts)
 def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = gamma/pi and the radius = epsylon
 
@@ -82,7 +88,7 @@ def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = g
     seconde = patate[5]
 
     print(heure, minute, seconde) # a simple test to watch what the programm is doing (run it, and you'll see, that this test is done tausend time per second, that why I think the problem is here.)
-    drawPetAig(Gamma, Pi, Epsylon, minute, can1)
+    drawPetAig(Gamma, Pi, Epsylon, heure, can1)
     drawGrdAig(Gamma, Pi, Epsylon, minute, can1)
     drawSecAig(Gamma, Pi, Epsylon, seconde, can1)
 
@@ -95,25 +101,19 @@ def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = g
 
 fen1 = Tk()
 
-
 can1 = Canvas(fen1, bg="white", height=500, width=500)
 HORLOGE1(250, 180, 150)
 
-box1 = Frame(fen1)
-button1 = tkinter.Button(box1, text ="Settings", font=("Courier", 15))
-button2 = tkinter.Button(box1, text ="Suivant", font=("Courier", 15))
-
+box1 = Frame(fen1, bg="white")
+button1 = tkinter.Button(box1, text ="Settings", font=("Courier", 20))
+button1.pack(padx = 70, side = LEFT)
+button2 = tkinter.Button(box1, text ="Suivant", font=("Courier", 20), action = delete_canvas(can1))
+button2.pack(side = LEFT)
 
 # can1.create_window(250, 390, window=box1)
 can1.pack()
 
 box1.pack(expand=True, fill="x", padx=5, pady=5, side = LEFT)
-button1.pack()
-button2.pack()
-
-
-
-
 
 
 fen1.mainloop()
