@@ -55,17 +55,22 @@ def fondhorloge(CoordA, CoordZ, Taille, can1):  #function drawing the backgroud 
 def tick(can):
     curtime = ''
     window_time = tkinter.Label(bg="white")
+    window_date = tkinter.Label(bg="white")
     window_time.pack()
+    window_date.pack()
 # %d %m %y %H:%M:%S
     # today_time = datetime.today()
     now = datetime.now()
-    mytime = now.strftime("%H:%M:%S \n %m/%d/%Y")
+    mytime = now.strftime("%H:%M:%S")
+    mydate = now.strftime("%a %b %Y")
     # newtime = datetime.strptime(today_time, '%b %d %H:%M:%S,%f')
     if mytime != curtime:
         curtime = mytime
         window_time.config(text=curtime, font=("Courier", 44))
+        window_date.config(text=mydate, font=("Courier", 20))
     #window_time.after(200, tick)
-    can.create_window(250, 450, window=window_time)
+    can.create_window(250, 390, window=window_time)
+    can.create_window(250, 440, window=window_date)
 
 #PRINCIPLE FUNCTION (here the problem starts)
 def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = gamma/pi and the radius = epsylon
@@ -89,9 +94,27 @@ def HORLOGE1(Gamma, Pi, Epsylon):# draw a clock with the center position x/x = g
 #execution of the main function
 
 fen1 = Tk()
+
+
 can1 = Canvas(fen1, bg="white", height=500, width=500)
-can1.pack()
 HORLOGE1(250, 180, 150)
+
+box1 = Frame(fen1)
+button1 = tkinter.Button(box1, text ="Settings", font=("Courier", 15))
+button2 = tkinter.Button(box1, text ="Suivant", font=("Courier", 15))
+
+
+# can1.create_window(250, 390, window=box1)
+can1.pack()
+
+box1.pack(expand=True, fill="x", padx=5, pady=5, side = LEFT)
+button1.pack()
+button2.pack()
+
+
+
+
+
 
 fen1.mainloop()
 fen1.destroy()
