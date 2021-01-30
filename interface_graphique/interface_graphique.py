@@ -15,17 +15,17 @@ def drawcircle(Alpha,Beta,Rayon,Couleur,can): #draw a circle base on center coor
 def drawPetAig(CoordA, CoordZ, Taille, Omega, can): #function to drawn the second hand of the clock
     Pi = 3.141592
     Omega = (Omega*5-15)*6#((Omega/60)+1)*30
-    can.create_line(CoordA + (Taille/3) * cos(Pi*(Omega/180)), CoordZ + (Taille/3) * sin(Pi*(Omega/180)), CoordA - (Taille/8) * cos(Pi*(Omega/180)), CoordZ - (Taille/8) * sin(Pi*(Omega/180)) )
+    can.create_line(CoordA + (Taille/3) * cos(Pi*(Omega/180)), CoordZ + (Taille/3) * sin(Pi*(Omega/180)), CoordA - (Taille/8) * cos(Pi*(Omega/180)), CoordZ - (Taille/8) * sin(Pi*(Omega/180)), width=4 )
 
 def drawGrdAig(CoordA, CoordZ, Taille, Omega, can): #function to draw the minute hand, based on center coord and minutes.
     Pi = 3.141592
     Omega = (Omega-15)*6
-    can.create_line(CoordA + (Taille/1.5) * cos(Pi*(Omega/180)), CoordZ + (Taille/1.5) * sin(Pi*(Omega/180)), CoordA - (Taille/6) * cos(Pi*(Omega/180)), CoordZ - (Taille/6) * sin(Pi*(Omega/180)))
+    can.create_line(CoordA + (Taille/1.5) * cos(Pi*(Omega/180)), CoordZ + (Taille/1.5) * sin(Pi*(Omega/180)), CoordA - (Taille/6) * cos(Pi*(Omega/180)), CoordZ - (Taille/6) * sin(Pi*(Omega/180)), width=3)
 
 def drawSecAig(CoordA, CoordZ, Taille, Omega, can): #function to draw the hour hand
     Pi = 3.141592
     Omega = (Omega-15) *6
-    can.create_line(CoordA + (Taille/1.5) * cos(Pi*(Omega/180)), CoordZ + (Taille/1.5) * sin(Pi*(Omega/180)), CoordA - (Taille/6) * cos(Pi*(Omega/180)), CoordZ - (Taille/6) * sin(Pi*(Omega/180)), fill = "red")
+    can.create_line(CoordA + (Taille/1.5) * cos(Pi*(Omega/180)), CoordZ + (Taille/1.5) * sin(Pi*(Omega/180)), CoordA - (Taille/6) * cos(Pi*(Omega/180)), CoordZ - (Taille/6) * sin(Pi*(Omega/180)), fill = "red", width=3)
 
 def fondhorloge(CoordA, CoordZ, Taille, can1):  #function drawing the backgroud of the clock
     Pi = 3.141592
