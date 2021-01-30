@@ -6,7 +6,7 @@ from time import gmtime, sleep
 import time
 from datetime import datetime
 
-# Horloge analogique
+# Horloge analogique 
 #defining of secondary functions
 def drawcircle(Alpha,Beta,Rayon,Couleur,can): #draw a circle base on center coord radius and color
     x1,y1,x2,y2=Alpha-Rayon, Beta-Rayon, Alpha+Rayon, Beta+Rayon
